@@ -1,75 +1,224 @@
-
 <div class="container">
-<form [formGroup]="form" (ngSubmit)="onSubmit(form)"
-  class="row justify-content-md-center">
-  <div class="col-md-8">
-    <div class="form-group row">
-      <label for="example-text-input" class="col-2 col-form-label">
-        Name:
-      </label>
-      <div class="col-10">
-        <input formControlName="name" class="form-control" type="text"
-          id="example-text-input">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="example-email-input" class="col-2 col-form-label">
-        Email:
-      </label>
-      <div class="col-10">
-        <input formControlName="Email" class="form-control" type="email"
-          id="example-email-input">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="example-tel-input" class="col-2 col-form-label">
-        Tel:
-      </label>
-      <div class="col-10">
-        <input formControlName="tel" class="form-control" type="tel" 
-          id="example-tel-input">
-      </div>
-    </div>
-    <fieldset formGroupName="social">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit(form)"
+    class="row justify-content-md-center"
+    *ngFor="let data of dataUsers; let i= index"
+  >
+    <div class="col-md-8">
       <div class="form-group row">
-        <label for="">social:</label>
-        <div class="form-group ">
-          <label for="example-url-fb" class="col-md-2 col-form-label">Facebook:</label>
-          <div class="col-md-10">
-            <input class="form-control " type="url" id="example-url-fb" formControlName="facebook">
+        <label for="example-text-input" class="col-2 col-form-label">
+          Name:
+        </label>
+        <div class="col-10">
+          <input
+            formControlName="name"
+            class="form-control"
+            type="text"
+            name="name"
+            id="name"
+            [ngModel]="data.name"
+          />
+          <div
+          *ngIf="
+            form.controls.name.invalid &&
+            (form.controls.name.touched || form.controls.name.dirty)
+          "
+        >
+          <div
+            class="col alert alert-danger"
+            role="alert"
+            *ngIf="
+              form.controls.name.errors?.required
+            "
+          >
+            Not Null !
           </div>
         </div>
-        <div class="form-group ">
-          <label for="example-url-twt" class="col-md-2 col-form-label">Twitter:</label>
-          <div class="col-md-10">
-            <input class="form-control" type="url" id="example-url-twt" formControlName="twitter">
           </div>
         </div>
-      </div>
-    </fieldset>
-   
-      <div formArrayName="tels" *ngIf="tels.controls.length">
-        <div class="form-group row" *ngFor="let c of tels.controls; index as i">
-          <label for="example-tel-input" class="col-md-2 col-form-label">Tel:</label>
-          <div class="col-md-10">
-            <input class="form-control " type="tel" id="example-tel-input" [formControlName]="i">
-            <div class="text-right">
-              <button class="btn btn-info" (click)="addTel()">+</button>
-              <button class="btn btn-danger" (click)="removeTel(i)" *ngIf="tels.controls.length > 1">-</button>
+      <div class="form-group row">
+        <label for="example-email-input" class="col-2 col-form-label">
+          Email:
+        </label>
+        <div class="col-10">
+          <input
+            formControlName="Email"
+            class="form-control"
+            type="email"
+            id="example-email-input"
+            [ngModel]="data.email"
+          />
+          <div
+            *ngIf="
+              form.controls.Email.invalid &&
+              (form.controls.Email.touched || form.controls.Email.dirty)
+            "
+          >
+            <div
+              class="col alert alert-danger"
+              role="alert"
+              *ngIf="
+                form.controls.Email.touched &&
+                form.controls.Email.errors?.required
+              "
+            >
+              Not Null !
+            </div>
+            <div
+              class="col alert alert-danger"
+              role="alert"
+              *ngIf="
+                form.controls.Email.touched &&
+                form.controls.Email.errors?.email
+              "
+            >
+            Email is not in the correct format
             </div>
           </div>
         </div>
       </div>
+      <div class="form-group row" *ngFor="let gende of data.gender">
+        <label class="col-2 col-form-label"> Gender; </label>
+        <div>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              value="Unknown"
+              formControlName="gender"
+              name="gender"
+              
+            />Unknown
+          </label>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              value="male"
+              formControlName="gender"
+              name="gender"
+             
+            />Male
+          </label>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              value="Female"
+              formControlName="gender"
+              name="gender"
+            />Female
+          </label>
+        </div>
+      </div>
+      <fieldset formGroupName="skills">
+        <div class="form-group row">
+          <label class="col-2 col-form-label"> Skills : </label>
+          <div>
+            <label class="radio-inline">
+              <input
+                type="checkbox"
+                (change)="handleChecked($event)"
+                value="HTML"
+              />HTML
+            </label>
+            <label class="checkbox-inline">
+              <input
+                type="checkbox"
+                (change)="handleChecked($event)"
+                value="CSS"
+              />CSS
+            </label>
+            <label class="checkbox-inline">
+              <input
+                type="checkbox"
+                (change)="handleChecked($event)"
+                value="JAVASCRIPT"
+              />JAVASCRIPT
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset formGroupName="social" *ngFor="let socials of data.social">
+        <div class="form-group row">
+          <div><label for="">social:</label></div>
 
- 
-    
-    <div class="form-group row">
-      <div class="col-10 offset-2">
-        <button class="btn btn-primary"
-          type="submit">Submit</button>
+          <div class="col-md-6">
+            <label for="example-url-fb" class="col-md-2 col-form-label"
+              >Facebook:</label
+            >
+            <input
+              class="form-control"
+              type="url"
+              id="example-url-fb"
+              formControlName="facebook"
+              [ngModel]="socials.facebook"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="example-url-twt" class="col-md-2 col-form-label"
+              >Twitter:</label
+            >
+            <input
+              class="form-control"
+              type="url"
+              id="example-url-twt"
+              formControlName="twitter"
+              [ngModel]="socials.twitter"
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <ng-container
+        formArrayName="tels"
+        *ngFor="let c of tels.controls; let i = index"
+      
+      >
+        <div class="form-group row" [formGroupName]="i"   *ngFor="let contacts of data.contact" >
+          <div><label for="">Contact</label></div>
+          <div class="col-md-4">
+            <label for="example-tel-input" class="col-md-2 col-form-label"
+              >Tel:</label
+            >
+            <input
+              class="form-control"
+              type="tel"
+              id="example-tel-input"
+              formControlName="tel"
+              [ngModel]="contacts.tel"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="example-tel-input" class="col-md-2 col-form-label"
+              >Address:</label
+            >
+            <input
+              class="form-control"
+              type="tel"
+              id="example-tel-input"
+              formControlName="address"
+              [ngModel]="contacts.address"
+            />
+          </div>
+          <div class="text-right gt10">
+            <div class="col-md-2">
+              <button class="btn btn-info" (click)="additemtel()">+</button>
+              <button
+                class="btn btn-danger"
+                (click)="removeTel(i)"
+                *ngIf="tels.controls.length > 1"
+              >
+                -
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="form-group row">
+        <div class="col-10 offset-2">
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
       </div>
     </div>
-  </div>
-</form>
-
+  </form>
 </div>
