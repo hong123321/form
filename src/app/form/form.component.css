@@ -4,3 +4,34 @@
 .gt10{
     margin-top: 25px;
 }
+.ml30{
+    margin-left: 30px;
+}
+.main-info {
+    margin-top: 2rem;
+    width: 80%;
+    margin: auto;
+    padding: 1rem;
+    border: 1px solid green;
+    border-radius: 5px;
+    position: relative;
+}
+
+.info {
+    margin-top: 1rem;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.info-title {
+    position: absolute;
+    top: -28px;
+    left: 30px;
+    padding: 0 .5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    background-color: white;
+    margin-top: 5px;
+}

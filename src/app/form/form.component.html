@@ -1,8 +1,8 @@
-<div class="container">
-  <form
+<div class="container row">
+  <form 
     [formGroup]="form"
     (ngSubmit)="onSubmit(form)"
-    class="row justify-content-md-center"
+    class="row justify-content-md-center col-md-8"
     *ngFor="let data of dataUsers; let i= index"
   >
     <div class="col-md-8">
@@ -221,4 +221,31 @@
       </div>
     </div>
   </form>
+  <div class="col-md-4">
+    <div class="main-info">
+      <div class="info name">
+          <span class="title">Full name:</span> {{ data?.name }}
+      </div>
+      <div class="info email">
+        <span class="title">Email:</span> {{ data?.Email }}
+      </div>
+      <div class="info gender">
+          <span class="title">Gender:</span> {{ data?.gender }}
+      </div>
+      <div class="info soccial">
+        <span class="title">Soccial: </span>
+        <div class="info ml30 title">Facebook: {{ data?.social.facebook }}</div>
+        <div class="info ml30 title">twitter :{{ data?.social.twitter }}</div>
+      </div>
+      <div class="info skills">
+        <span class="title">Skills: </span> {{ data?.skills }}
+    </div>
+      <div class="info education">
+          <span class="title">tel:</span>
+          <div *ngFor="let edu of data?.tels">
+              {{ edu.tel }} - {{ edu.address }}
+          </div>
+      </div>
+  </div>
+</div>
 </div>
